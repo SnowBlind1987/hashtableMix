@@ -10,7 +10,9 @@ int main(){
     char value[] ="testing";
     int key=2;
     myHash.insert(key,value);
-    cout<<myHash.find(key)<<endl;
+    char* newVal;
+    newVal=myHash.find(key);
+    cout<<newVal<<endl;
 }
 
 /*int main(){
