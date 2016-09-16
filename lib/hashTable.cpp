@@ -15,6 +15,6 @@ void hashTable::insert(int key, char* val){
 }
 
 
-char* hashTable::find(int key){
-    return (*myHash)[key];
+void hashTable::find(int key, char* val){
+    *val= *(*myHash)[key];
 }

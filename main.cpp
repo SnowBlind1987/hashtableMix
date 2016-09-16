@@ -10,7 +10,10 @@ int main(){
     char value[] ="testing";
     int key=2;
     myHash.insert(key,value);
-    cout<<myHash.find(key)<<endl;
+    char* output=new char(10);
+    myHash.find(key,output);
+    cout<<output<<endl;
+    delete output;
 }
 
 /*int main(){
