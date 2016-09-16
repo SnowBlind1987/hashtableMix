@@ -1,10 +1,14 @@
-#include "hashtable.h"
+#include "hashTable.h"
 #include <unordered_map>
 
 using namespace std;
 
-hashTable::insert(int key, char* val){
-    int n= sizeof(val);
-    
+
+void hashTable::insert(int key, char* val){
+    myHash.insert(make_pair(key,val));
 }
 
+
+char* hashTable::find(int key){
+    return myHash[key];
+}
