@@ -5,8 +5,10 @@ using namespace std;
 
 class hashTable{
     private:
-        unordered_map<int,char*> myHash;
+        unordered_map<int,char*>* myHash;
     public:
+        hashTable();
+        ~hashTable();
         void insert(int,char*);
         char* find(int);
 };
