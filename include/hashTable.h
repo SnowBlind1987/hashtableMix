@@ -8,6 +8,7 @@ class hashTable{
     public:
         hashTable();
         ~hashTable();
+		void hashInit();
         void insert(int,char*);
         int find(int,char* &);
 };

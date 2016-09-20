@@ -2,6 +2,7 @@
 //#include <unordered_map>
 
 using namespace std;
+extern "C"{
 hashTable::hashTable(){
     myHash=new unordered_map<int,char*>;
 }
@@ -14,6 +15,13 @@ void hashTable::insert(int key, char* val){
     this->myHash->insert(make_pair(key,val));
 }
 
+void hashTable::hashInit(){
+	auto it=myHash->begin();
+
+	for(it;it!=myHash->end();it++ ){
+		myHash->erase(it);
+	}
+}
 
 int hashTable::find(int key,char* & output){
 	auto it=myHash->find(key);
@@ -24,4 +32,6 @@ int hashTable::find(int key,char* & output){
 		output=it->second;
 		return 0;
 	}	
+}
+
 }

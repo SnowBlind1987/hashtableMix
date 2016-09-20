@@ -7,6 +7,7 @@ using std::cout;
 using std::endl;
 int main(){
     hashTable myHash;
+	myHash.hashInit();
     char value[] ="testing";
     int key=2;
     myHash.insert(key,value);
