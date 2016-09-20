@@ -15,6 +15,13 @@ void hashTable::insert(int key, char* val){
 }
 
 
-void hashTable::find(int key, char* val){
-    *val= *(*myHash)[key];
+int hashTable::find(int key,char* & output){
+	auto it=myHash->find(key);
+	if (it==myHash->end()){
+		return -1;
+	}
+    else{
+		output=it->second;
+		return 0;
+	}	
 }
