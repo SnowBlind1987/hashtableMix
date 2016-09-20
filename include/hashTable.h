@@ -10,7 +10,7 @@ class hashTable{
         ~hashTable();
 		void hashInit();
         void insert(int,char*);
-        int find(int,char* &);
+        void find(int,char* &,int &);
 };
 
 

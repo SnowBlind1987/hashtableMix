@@ -12,7 +12,8 @@ int main(){
     int key=2;
     myHash.insert(key,value);
 	char* output;
-    int ierr=myHash.find(1,output);
+    int ierr;
+    myHash.find(2,output,ierr);
 	if (ierr!=-1){
 		cout<<output<<endl;
 	}

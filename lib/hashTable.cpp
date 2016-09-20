@@ -2,7 +2,6 @@
 //#include <unordered_map>
 
 using namespace std;
-extern "C"{
 hashTable::hashTable(){
     myHash=new unordered_map<int,char*>;
 }
@@ -23,15 +22,36 @@ void hashTable::hashInit(){
 	}
 }
 
-int hashTable::find(int key,char* & output){
+void hashTable::find(int key,char* & output,int & ierr){
 	auto it=myHash->find(key);
 	if (it==myHash->end()){
-		return -1;
+		ierr=-1;
+        return;
 	}
     else{
-		output=it->second;
-		return 0;
+		output =it->second;
+        ierr=0;
+        return;
 	}	
 }
 
+extern "C"{
+    hashTable* hashTable__new(){
+        return new hashTable();
+    }
+    void hashTable__delete(hashTable* itself){
+        delete itself;
+    }
+
+    void hashTable__init(hashTable* itself){
+        itself->hashInit();
+    }
+
+    void hashTable__insert(hashTable* itself,int&key,char* value){
+        itself->insert(key,value);
+    }
+
+    char* hashTable__find(hashTable* itself,int&key,char*& value, int& ierr){
+        itself->find(key,value,ierr);
+    }
 }
