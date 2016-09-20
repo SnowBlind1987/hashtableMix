@@ -79,4 +79,6 @@ subroutine stringHashFind(itself,key,value,ierr)
     call stringHash__find(itself%hash_ptr,key,c_str,ierr)
     !need to set value to c_string
 end subroutine stringHashFind
-end type end module string_hash
+
+
+end module string_hash
