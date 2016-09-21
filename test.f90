@@ -1,8 +1,8 @@
 program main
-use test_hash
-implicit none
-type(string_hash):: hash
-character(len=*):: test_val
-integer::key
-call stringHashNew(hash) 
+    use test_hash
+    implicit none
+    type(string_hash):: hash
+    character(len=30):: test_val
+    integer::key
+    call stringHashNew(hash) 
 end program main

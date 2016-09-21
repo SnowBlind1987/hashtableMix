@@ -29,8 +29,8 @@ INTERFACE
         integer(c_int),value,intent(in)::key
         character(c_char),intent(in)::value(*)
    END SUBROUTINE hashTable__insert
-
-   SUBROUTINE hashTable__find(itself,key,value,ierr) bind(C,name="hashTable_find")
+   
+   SUBROUTINE hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find")
         use iso_c_binding,only:c_ptr,c_char,c_int
         type(c_ptr),intent(in)::itself
         integer(c_int),value,intent(in)::key
@@ -75,8 +75,8 @@ subroutine stringHashFind(itself,key,value,ierr)
     character(len=*),intent(out)::value
     integer,intent(out)::ierr
     character(c_char)::c_str(33)
-    call stringHash__find(itself%hash_ptr,key,c_str,ierr)
-    !need to set value to c_string
+    call hashTable__find(itself%hash_ptr,key,c_str,ierr)
+    !value=c_str
 end subroutine stringHashFind
 
 
