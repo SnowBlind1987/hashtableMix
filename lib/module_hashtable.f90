@@ -10,9 +10,9 @@ end type string_hash
 INTERFACE
     SUBROUTINE hashTable__new(itself) bind(C,name="hashTable__new")
         use iso_c_binding,only:c_ptr
-        type(c_ptr),intent(inout)::itself
+        type(c_ptr),intent(in)::itself
     END SUBROUTINE hashTable__new
-!!!!
+
     SUBROUTINE hashTable__delete(itself) bind(C,name="hashTable__delete")
         use iso_c_binding,only:c_ptr
         type(c_ptr),intent(in)::itself
@@ -50,6 +50,7 @@ end subroutine stringHashNew
 subroutine stringHashDel(itself)
     type(string_hash),intent(inout)::itself
     call hashTable__delete(itself%hash_ptr)
+    write(*,*) "out of c"
     itself%hash_ptr=c_null_ptr
 end subroutine stringHashDel
 

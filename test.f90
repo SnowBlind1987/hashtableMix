@@ -5,5 +5,5 @@ program test
     character(len=30):: test_val
     integer::key,ierr
     call stringHashNew(hash)
-    call stringHashInsert(hash,key,"test") 
+    call stringHashClear(hash) 
 end program test

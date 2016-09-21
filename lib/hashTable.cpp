@@ -1,3 +1,4 @@
+#include<iostream>
 #include "hashTable.h"
 //#include <unordered_map>
 
@@ -15,7 +16,9 @@ void hashTable::insert(int key, char* val){
 }
 
 void hashTable::hashInit(){
+    std::cout<<"actually made it to C\n";
 	auto it=myHash->begin();
+    std::cout<<"past iter\n";
 
 	for(it;it!=myHash->end();it++ ){
 		myHash->erase(it);

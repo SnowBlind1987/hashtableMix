@@ -11,7 +11,7 @@ enable_language(Fortran)
 
 set (MODULE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/include")
 file(MAKE_DIRECTORY "${MODULE_OUTPUT_PATH}")
-
+message(${MODULE_OUTPUT_PATH})
 include_directories("include" ${MODULE_OUTPUT_PATH})
 add_subdirectory(lib)
 
