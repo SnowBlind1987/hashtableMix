@@ -12,7 +12,7 @@ INTERFACE
         use iso_c_binding,only:c_ptr
         type(c_ptr),intent(inout)::itself
     END SUBROUTINE hashTable__new
-!
+!!!!
     SUBROUTINE hashTable__delete(itself) bind(C,name="hashTable__delete")
         use iso_c_binding,only:c_ptr
         type(c_ptr),intent(in)::itself
@@ -64,7 +64,9 @@ subroutine stringHashInsert(itself,key,value)
     integer,intent(in)::key
     character(len=*),intent(in)::value
     character(c_char)::c_str(33)
+    write(*,*) value
     c_str=adjustl(trim(value))//"/0"
+    write(*,*) c_str
     call hashTable__insert(itself%hash_ptr,key,value)
 end subroutine stringHashInsert
 
