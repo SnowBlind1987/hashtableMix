@@ -12,7 +12,7 @@ INTERFACE
         use iso_c_binding,only:c_ptr
         type(c_ptr),intent(inout)::itself
     END SUBROUTINE hashTable__new
-
+!
     SUBROUTINE hashTable__delete(itself) bind(C,name="hashTable__delete")
         use iso_c_binding,only:c_ptr
         type(c_ptr),intent(in)::itself
