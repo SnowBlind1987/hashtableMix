@@ -8,35 +8,45 @@ type string_hash
 end type string_hash
 
 INTERFACE
-    SUBROUTINE hashTable__new(itself) bind(C,name="hashTable__new")
+    function hashTable__new() result(itself) bind(C,name="hashTable__new")
         use iso_c_binding,only:c_ptr
-        type(c_ptr),intent(in)::itself
-    END SUBROUTINE hashTable__new
+        implicit none
+        type(c_ptr)::itself
+    END function hashTable__new
 
     SUBROUTINE hashTable__delete(itself) bind(C,name="hashTable__delete")
         use iso_c_binding,only:c_ptr
+        implicit none
         type(c_ptr),intent(in)::itself
     END SUBROUTINE hashTable__delete
 
-   SUBROUTINE hashTable__init(itself) bind(C,name="hashTable__init")
+   SUBROUTINE hashTable__clear(itself) bind(C,name="hashTable__clear")
         USE iso_c_binding, only: c_ptr
+        implicit none
         type(c_ptr),intent(in)::itself
-   END SUBROUTINE hashTable__init 
+   END SUBROUTINE hashTable__clear 
 
    SUBROUTINE hashTable__insert(itself,key,value) bind(C,name="hashTable__insert")
         use iso_c_binding,only:c_ptr,c_char,c_int
+        implicit none
         type(c_ptr)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(in)::value(*)
    END SUBROUTINE hashTable__insert
    
-   SUBROUTINE hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find")
+   subroutine hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find")
         use iso_c_binding,only:c_ptr,c_char,c_int
+        implicit none
         type(c_ptr),intent(in)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(out)::value(*)
         integer(c_int),intent(out)::ierr
-   END SUBROUTINE hashTable__find
+   END subroutine hashTable__find
+
+ ! function strlen(string)result(len) bind(C,name='strlen')
+ !      use iso_c_binding,only:c_char,C_SIZE_T
+ !      implicit none
+ ! end function strlen
 END INTERFACE
     
 
@@ -44,7 +54,7 @@ CONTAINS
 
 subroutine stringHashNew(itself)
     type(string_hash),intent(inout)::itself
-    call hashTable__new(itself%hash_ptr)
+    itself%hash_ptr= hashTable__new()
 end subroutine stringHashNew
 
 subroutine stringHashDel(itself)
@@ -55,8 +65,8 @@ subroutine stringHashDel(itself)
 end subroutine stringHashDel
 
 subroutine stringHashClear(itself)
-    type(string_hash),intent(inout)::itself
-    call hashTable__init(itself%hash_ptr)
+    type(string_hash),intent(in)::itself
+    call hashTable__clear(itself%hash_ptr)
 end subroutine stringHashClear
 
 subroutine stringHashInsert(itself,key,value)
@@ -81,6 +91,5 @@ subroutine stringHashFind(itself,key,value,ierr)
     call hashTable__find(itself%hash_ptr,key,c_str,ierr)
     !value=c_str
 end subroutine stringHashFind
-
 
 end module test_hash
