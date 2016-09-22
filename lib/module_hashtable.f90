@@ -78,7 +78,7 @@ subroutine stringHashInsert(itself,key,value)
     write(*,*) value
     c_str=adjustl(trim(value))//"/0"
     write(*,*) c_str
-    call hashTable__insert(itself%hash_ptr,key,value)
+    call hashTable__insert(itself%hash_ptr,int(key,c_int),value)
 end subroutine stringHashInsert
 
 subroutine stringHashFind(itself,key,value,ierr)
@@ -88,7 +88,7 @@ subroutine stringHashFind(itself,key,value,ierr)
     character(len=*),intent(out)::value
     integer,intent(out)::ierr
     character(c_char)::c_str(33)
-    call hashTable__find(itself%hash_ptr,key,c_str,ierr)
+    call hashTable__find(itself%hash_ptr,int(key,c_int),c_str,ierr)
     !value=c_str
 end subroutine stringHashFind
 
