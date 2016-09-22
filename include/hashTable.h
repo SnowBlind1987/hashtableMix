@@ -6,8 +6,8 @@ class hashTable{
     private:
         std::unordered_map<int,char*> myHash;
     public:
-        // hashTable();
-        //~hashTable();
+         hashTable();
+        ~hashTable();
 		void clear();
         void insert(int,char*);
         char* find(int,int &);

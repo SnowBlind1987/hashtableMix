@@ -4,6 +4,7 @@ program test
     type(string_hash):: hash
     character(len=30):: test_val
     integer::key,ierr
-    call stringHashNew(hash)
-    call stringHashClear(hash) 
+    call hashNew(hash)
+    call hashClear(hash)
+    write(*,*) "past where I'm supposed to be" 
 end program test

@@ -4,6 +4,13 @@
 
 using namespace std;
 
+hashTable::hashTable(){
+    std::cout<<"Calling constructor\n";
+}
+
+hashTable::~hashTable(){
+    std::cout<<"Calling destructor\n";
+}
 void hashTable::insert(int key, char* val){
     this->myHash.insert(make_pair(key,val));
 }
@@ -40,6 +47,10 @@ extern "C"{
     }
 
     void hashTable__clear(hashTable* itself){
+        std::cout<<itself<<"\n";
+        if (itself==NULL){
+            std::cout<<"null pointer!\n";
+        }
         itself->clear();
     }
 
