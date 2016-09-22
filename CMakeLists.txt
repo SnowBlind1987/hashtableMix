@@ -9,6 +9,8 @@ enable_language(Fortran)
 
 #message("the fortran flag is " ${CMAKE_FORTRAN_COMPILER)
 
+set (CMAKE_CXX_FLAGS "-std=c++11")
+
 set (MODULE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/include")
 file(MAKE_DIRECTORY "${MODULE_OUTPUT_PATH}")
 message(${MODULE_OUTPUT_PATH})
@@ -16,10 +18,13 @@ message(${MODULE_OUTPUT_PATH})
 include_directories("include" ${MODULE_OUTPUT_PATH})
 add_subdirectory(lib)
 
-add_executable(hTest test.f90)
+add_executable(hTestF test.f90)
 #add_dependencies(hTest myHash)
-set_target_properties(hTest PROPERTIES Fortran_MODULE_DIRECTORY
+set_target_properties(hTestF PROPERTIES Fortran_MODULE_DIRECTORY
     ${MODULE_OUTPUT_PATH})
-set_target_properties(hTest PROPERTIES LINKER_LANGUAGE Fortran)
-target_link_libraries (hTest myHash)
+set_target_properties(hTestF PROPERTIES LINKER_LANGUAGE Fortran)
+target_link_libraries (hTestF myHash)
+
+add_executable(hTestC main.cpp)
+target_link_libraries(hTestC myHash)
 

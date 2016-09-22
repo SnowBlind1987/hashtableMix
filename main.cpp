@@ -7,13 +7,13 @@ using std::cout;
 using std::endl;
 int main(){
     hashTable myHash;
-	myHash.hashInit();
+	myHash.clear();
     char value[] ="testing";
     int key=2;
     myHash.insert(key,value);
 	char* output;
     int ierr;
-    myHash.find(2,output,ierr);
+    output = myHash.find(2,ierr);
 	if (ierr!=-1){
 		cout<<output<<endl;
 	}
