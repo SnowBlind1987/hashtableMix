@@ -44,9 +44,10 @@ INTERFACE
         integer(c_int),intent(out)::ierr
    END subroutine C_hashTable__find
 
-   function C_create__char() result(itself) bind(C,name="create__char_")
+   function C_create__char(length) result(itself) bind(C,name="create__char_")
         use iso_c_binding,only:c_ptr,c_int
         implicit none
+        integer(c_int)::length
         type(c_ptr)::itself
    end function C_create__char
 
@@ -100,12 +101,12 @@ subroutine hashTable__clear(itself1)
 end subroutine hashTable__clear
 
 subroutine hashTable__insert(itself1,key,value,ierr)
-    use iso_c_binding,only:c_char
+    use iso_c_binding,only:c_char,c_null_char
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
     character(len=*),intent(inout)::value
     integer,intent(inout)::ierr
-    value=adjustl(trim(value))//"/0"
+    value=adjustl(trim(value))//c_null_char
     call C_hashTable__insert(itself1%hash_ptr,int(key,c_int),value,ierr)
 end subroutine hashTable__insert
 !
@@ -120,11 +121,12 @@ subroutine hashTable__find(itself1,key,value,ierr)
     type(c_ptr)::ptr_char
 
     length=len(value)
-    ptr_char=C_create__char()
+    ptr_char=C_create__char(length)
     call C_hashTable__find(itself1%hash_ptr,int(key,c_int),ptr_char,ierr)
     write(*,*) "past find"
-    !call C_delete__char(ptr_char)
-    !ptr_char=c_null_ptr
+    value= ptr_char
+    call C_delete__char(ptr_char)
+    ptr_char=c_null_ptr
 end subroutine hashTable__find
 
 end module test_hash

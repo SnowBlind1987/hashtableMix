@@ -62,17 +62,20 @@ extern "C"{
     void  hashTable__find_(hashTable* itself,int key,char* & output, int& ierr){
         const char* tmp=itself->find(key,ierr);
         int len=(int)strlen(tmp);
-        for (int i=0;i<len-1;i++){
-            cout<<tmp[i]<<endl;
+        cout<<len<<endl;
+        for (int i=0;i<len;i++){
+            cout<<tmp[i]<<" "<<i<<endl;
+            if (tmp[i]=='\0') break;
             output[i]=tmp[i];
         }
+        cout<<"out of loop";
     }
 
-    char* create__char_(){
-        return new char;
+    char* create__char_(int length){
+        return new char(length);
     }
 
     void delete__char_(char* const itself){
-        delete  itself;
+        delete[]  itself;
     }
 }
