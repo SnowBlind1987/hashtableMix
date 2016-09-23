@@ -3,10 +3,15 @@ program test
     !include"exernal_call.h"
     implicit none
     type(string_hash):: hash
-    character(len=30):: test_val
+    character(len=33):: test_val,ret_val
     integer::key,ierr
     call hashNew(hash)
-    !call hashClear(hash)
+    call hashClear(hash)
+    key=2
+    test_val="testing"
+    call hashInsert(hash,key,test_val,ierr)
+    write(*,*) ierr
+    call hashFind(hash,key,ret_val,ierr)
     call hashDel(hash)
-    write(*,*) "past where I'm supposed to be" 
+    write(*,*) ret_val 
 end program test

@@ -26,12 +26,13 @@ INTERFACE
         type(c_ptr),value,intent(in)::itself
    END SUBROUTINE C_hashTable__clear 
 
-   SUBROUTINE C_hashTable__insert(itself,key,value) bind(C,name="hashTable__insert_")
+   SUBROUTINE C_hashTable__insert(itself,key,value,ierr) bind(C,name="hashTable__insert_")
         use iso_c_binding,only:c_ptr,c_char,c_int
         implicit none
         type(c_ptr),value,intent(in)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(in)::value(*)
+        integer(c_int),intent(out)::ierr
    END SUBROUTINE C_hashTable__insert
    
    subroutine C_hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find_")
@@ -88,27 +89,23 @@ subroutine hashTable__clear(itself1)
     call C_hashTable__clear(itself1%hash_ptr)
 end subroutine hashTable__clear
 
-subroutine hashTable__insert(itself1,key,value)
+subroutine hashTable__insert(itself1,key,value,ierr)
     use iso_c_binding,only:c_char
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
-    character(len=*),intent(in)::value
-    character(c_char)::c_str(33)
-    write(*,*) value
-    c_str=adjustl(trim(value))//"/0"
-    write(*,*) c_str
-    call C_hashTable__insert(itself1%hash_ptr,int(key,c_int),value)
+    character(len=*),intent(inout)::value
+    integer,intent(inout)::ierr
+    value=adjustl(trim(value))//"/0"
+    call C_hashTable__insert(itself1%hash_ptr,int(key,c_int),value,ierr)
 end subroutine hashTable__insert
 !
 subroutine hashTable__find(itself1,key,value,ierr)
     use iso_c_binding,only:c_char
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
-    character(len=*),intent(out)::value
+    character(len=*),intent(inout)::value
     integer,intent(out)::ierr
-    character(c_char)::c_str(33)
-    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),c_str,ierr)
-    !value=c_str
+    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),value,ierr)
 end subroutine hashTable__find
 
 end module test_hash

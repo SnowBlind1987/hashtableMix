@@ -1,0 +1,1 @@
+/opt/Software/gcc/5.4.0/bin/g++   -std=c++11   CMakeFiles/hTestC.dir/main.cpp.o  -o hTestC -rdynamic lib/C_only/libmyHashC.a 

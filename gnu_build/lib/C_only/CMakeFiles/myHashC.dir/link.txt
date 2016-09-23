@@ -1,0 +1,2 @@
+/usr/bin/ar cq libmyHashC.a  CMakeFiles/myHashC.dir/hashTable_c.cpp.o CMakeFiles/myHashC.dir/external_call.cpp.o
+/usr/bin/ranlib libmyHashC.a

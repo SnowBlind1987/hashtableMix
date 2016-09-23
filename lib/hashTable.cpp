@@ -1,37 +1,42 @@
 #include<iostream>
+#include<string.h>
 #include "hashTable.h"
-#include "external_call.h"
+
 //#include <unordered_map>
 
 using namespace std;
 
 hashTable::hashTable(){
-    std::cout<<"Calling constructor\n";
 }
 
 hashTable::~hashTable(){
-    std::cout<<"Calling destructor\n";
 }
-void hashTable::insert(int key, char* val){
-    this->myHash_.insert(make_pair(key,val));
+int hashTable::insert(int key, const char* val){
+    std::cout<<val<<std::endl;
+    bool inserted= this->myHash_.insert(make_pair(key,val)).second;
+    
+    if (inserted){
+        return 0;
+    }
+    else {
+        return -1;
+    }
 }
 
 void hashTable::clear(){
-    //std::cout<<"actually made it to C\n";
 	auto it=this->myHash_.begin();
-    //std::cout<<"past iter\n";
 
 	for(it;it!=myHash_.end();it++ ){
 		this->myHash_.erase(it);
 	}
 }
 
-char* hashTable::find(int key, int & ierr){
+const char* hashTable::find(int key, int & ierr){
 	auto it=this->myHash_.find(key);
 	if (it==this->myHash_.end()){
 		ierr=-1;
-        char * empty="\0";
-        
+        const char*   empty=" ";
+        return empty; 
 	}
     else{
         ierr=0;
@@ -41,28 +46,29 @@ char* hashTable::find(int key, int & ierr){
 
 extern "C"{
     hashTable* hashTable__new_(){
-		hashTable* tmp=new hashTable();
-		std::cout<<tmp<<std::endl;
-        return tmp;
+		return new hashTable();
     }
     void hashTable__delete_(hashTable* const itself){
-		std::cout<<itself<<std::endl;
         delete itself;
     }
 
     void hashTable__clear_(hashTable* itself){
-        std::cout<<itself<<"\n";
-        if (itself==NULL){
-            std::cout<<"null pointer!\n";
-        }
         itself->clear();
     }
 
-    void hashTable__insert_(hashTable* itself,int key,char* value){
-        itself->insert(key,value);
+    void hashTable__insert_(hashTable* itself,int key,const char* value,int& ierr){
+        ierr=itself->insert(key,value);
     }
 
-    void  hashTable__find_(hashTable* itself,int&key,char* & output, int& ierr){
-        output=itself->find(key,ierr);
+    void  hashTable__find_(hashTable* itself,int key,char* & output, int& ierr){
+        const char* tmp=itself->find(key,ierr);
+        cout<<"past the find command\n";
+        cout<<tmp<<endl;
+        int len=(int)strlen(tmp);
+        cout<<len<<endl;
+        for (int i=0;i<len-1;i++){
+            cout<<tmp[i]<<endl;
+            output[i]=tmp[i];
+        }
     }
 }

@@ -7,7 +7,14 @@
 using std::cout;
 using std::endl;
 int main(){
+    int key=2;
+    int ierr;
+    char value[]="testing";
+    char* out;
     hashTable* myHash=hashTable_new();
+    hashTable_insert(myHash,key,value);
+    hashTable_find(myHash,key,out,ierr);
+    cout<<out<<endl;
     hashTable_delete(myHash);	
 /*//	myHash->clear();
 	std::cout<<"printing pointer\n";

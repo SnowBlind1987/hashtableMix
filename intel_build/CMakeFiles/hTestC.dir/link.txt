@@ -1,0 +1,1 @@
+/opt/Software/intel_parallel_studio/2016u3/impi/5.1.3.210/intel64/bin/mpiicc   -std=c++11   CMakeFiles/hTestC.dir/main.cpp.o  -o hTestC -rdynamic lib/C_only/libmyHashC.a 

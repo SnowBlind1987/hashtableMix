@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/external_call.h
+hashTable.h
+../include/hashTable.h
+
+../include/hashTable.h
+unordered_map
+-
+
+/home/shelf7/aandreyev/code_practice/hashtableMix/lib/hashTable.cpp
+iostream
+-
+hashTable.h
+/home/shelf7/aandreyev/code_practice/hashtableMix/lib/hashTable.h
+external_call.h
+/home/shelf7/aandreyev/code_practice/hashtableMix/lib/external_call.h
+
