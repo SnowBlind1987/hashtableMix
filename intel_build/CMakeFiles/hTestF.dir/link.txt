@@ -1,1 +1,0 @@
-/opt/Software/intel_parallel_studio/2016u3/impi/5.1.3.210/intel64/bin/mpiifort    -lstdc++ CMakeFiles/hTestF.dir/test.f90.o  -o hTestF  lib/libmyHashF.a -lirng -ldecimal -lcilkrts -lstdc++ 

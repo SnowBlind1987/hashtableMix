@@ -1,4 +1,0 @@
-/home/shelf7/aandreyev/code_practice/hashtableMix/gnu_build/CMakeFiles/hTestF.dir
-/home/shelf7/aandreyev/code_practice/hashtableMix/gnu_build/lib/C_only/CMakeFiles/myHashC.dir
-/home/shelf7/aandreyev/code_practice/hashtableMix/gnu_build/lib/CMakeFiles/myHashF.dir
-/home/shelf7/aandreyev/code_practice/hashtableMix/gnu_build/CMakeFiles/hTestC.dir

@@ -1,1 +1,0 @@
-/opt/Software/gcc/5.4.0/bin/gfortran    -lstdc++ CMakeFiles/hTestF.dir/test.f90.o  -o hTestF -rdynamic lib/libmyHashF.a -lstdc++ 
