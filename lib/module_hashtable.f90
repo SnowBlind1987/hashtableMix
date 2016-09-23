@@ -8,36 +8,36 @@ type string_hash
 end type string_hash
 
 INTERFACE
-    function C_hashTable__new() result(itself) bind(C,name="hashTable__new")
+    function C_hashTable__new() result(itself) bind(C,name="hashTable__new_")
         use iso_c_binding,only:c_ptr
         implicit none
         type(c_ptr)::itself
     END function C_hashTable__new
 
-    SUBROUTINE C_hashTable__delete(itself) bind(C,name="hashTable__delete")
+    SUBROUTINE C_hashTable__delete(itself) bind(C,name="hashTable__delete_")
         use iso_c_binding,only:c_ptr
         implicit none
-        type(c_ptr),intent(in)::itself
+        type(c_ptr),value,intent(in)::itself
     END SUBROUTINE C_hashTable__delete
 
-   SUBROUTINE C_hashTable__clear(itself) bind(C,name="hashTable__clear")
+   SUBROUTINE C_hashTable__clear(itself) bind(C,name="hashTable__clear_")
         USE iso_c_binding, only: c_ptr
         implicit none
-        type(c_ptr),intent(in)::itself
+        type(c_ptr),value,intent(in)::itself
    END SUBROUTINE C_hashTable__clear 
 
-   SUBROUTINE C_hashTable__insert(itself,key,value) bind(C,name="hashTable__insert")
+   SUBROUTINE C_hashTable__insert(itself,key,value) bind(C,name="hashTable__insert_")
         use iso_c_binding,only:c_ptr,c_char,c_int
         implicit none
-        type(c_ptr)::itself
+        type(c_ptr),value,intent(in)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(in)::value(*)
    END SUBROUTINE C_hashTable__insert
    
-   subroutine C_hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find")
+   subroutine C_hashTable__find(itself,key,value,ierr) bind(C,name="hashTable__find_")
         use iso_c_binding,only:c_ptr,c_char,c_int
         implicit none
-        type(c_ptr),intent(in)::itself
+        type(c_ptr),value,intent(in)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(out)::value(*)
         integer(c_int),intent(out)::ierr
@@ -71,43 +71,43 @@ end interface hashFind
 
 CONTAINS
 
-subroutine hashTable__new(itself)
-    type(string_hash),intent(out)::itself
-    itself%hash_ptr= C_hashTable__new()
+subroutine hashTable__new(itself1)
+    type(string_hash),intent(out)::itself1
+    itself1%hash_ptr= C_hashTable__new()
 end subroutine hashTable__new
 
-subroutine hashTable__delete(itself)
-    type(string_hash),intent(inout)::itself
-    call C_hashTable__delete(itself%hash_ptr)
+subroutine hashTable__delete(itself1)
+    type(string_hash),intent(inout)::itself1
+    call C_hashTable__delete(itself1%hash_ptr)
     write(*,*) "out of c"
-    itself%hash_ptr=c_null_ptr
+    itself1%hash_ptr=c_null_ptr
 end subroutine hashTable__delete
 
-subroutine hashTable__clear(itself)
-    type(string_hash),intent(in)::itself
-    call C_hashTable__clear(itself%hash_ptr)
+subroutine hashTable__clear(itself1)
+    type(string_hash),intent(in)::itself1
+    call C_hashTable__clear(itself1%hash_ptr)
 end subroutine hashTable__clear
 
-subroutine hashTable__insert(itself,key,value)
+subroutine hashTable__insert(itself1,key,value)
     use iso_c_binding,only:c_char
-    type(string_hash),intent(in)::itself
+    type(string_hash),intent(in)::itself1
     integer,intent(in)::key
     character(len=*),intent(in)::value
     character(c_char)::c_str(33)
     write(*,*) value
     c_str=adjustl(trim(value))//"/0"
     write(*,*) c_str
-    call C_hashTable__insert(itself%hash_ptr,int(key,c_int),value)
+    call C_hashTable__insert(itself1%hash_ptr,int(key,c_int),value)
 end subroutine hashTable__insert
 !
-subroutine hashTable__find(itself,key,value,ierr)
+subroutine hashTable__find(itself1,key,value,ierr)
     use iso_c_binding,only:c_char
-    type(string_hash),intent(in)::itself
+    type(string_hash),intent(in)::itself1
     integer,intent(in)::key
     character(len=*),intent(out)::value
     integer,intent(out)::ierr
     character(c_char)::c_str(33)
-    call C_hashTable__find(itself%hash_ptr,int(key,c_int),c_str,ierr)
+    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),c_str,ierr)
     !value=c_str
 end subroutine hashTable__find
 
