@@ -12,7 +12,6 @@ hashTable::hashTable(){
 hashTable::~hashTable(){
 }
 int hashTable::insert(int key, const char* val){
-    std::cout<<val<<std::endl;
     bool inserted= this->myHash_.insert(make_pair(key,val)).second;
     
     if (inserted){
@@ -62,13 +61,18 @@ extern "C"{
 
     void  hashTable__find_(hashTable* itself,int key,char* & output, int& ierr){
         const char* tmp=itself->find(key,ierr);
-        cout<<"past the find command\n";
-        cout<<tmp<<endl;
         int len=(int)strlen(tmp);
-        cout<<len<<endl;
         for (int i=0;i<len-1;i++){
             cout<<tmp[i]<<endl;
             output[i]=tmp[i];
         }
+    }
+
+    char* create__char_(){
+        return new char;
+    }
+
+    void delete__char_(char* const itself){
+        delete  itself;
     }
 }

@@ -40,10 +40,21 @@ INTERFACE
         implicit none
         type(c_ptr),value,intent(in)::itself
         integer(c_int),value,intent(in)::key
-        character(c_char),intent(out)::value(*)
+        type(c_ptr),intent(inout)::value
         integer(c_int),intent(out)::ierr
    END subroutine C_hashTable__find
 
+   function C_create__char() result(itself) bind(C,name="create__char_")
+        use iso_c_binding,only:c_ptr,c_int
+        implicit none
+        type(c_ptr)::itself
+   end function C_create__char
+
+   subroutine C_delete__char(itself) bind(C,name="delete__char_")
+        use iso_c_binding,only:c_ptr
+        implicit none
+        type(c_ptr),value,intent(in)::itself
+   end subroutine C_delete__char
  ! function strlen(string)result(len) bind(C,name='strlen')
  !      use iso_c_binding,only:c_char,C_SIZE_T
  !      implicit none
@@ -80,7 +91,6 @@ end subroutine hashTable__new
 subroutine hashTable__delete(itself1)
     type(string_hash),intent(inout)::itself1
     call C_hashTable__delete(itself1%hash_ptr)
-    write(*,*) "out of c"
     itself1%hash_ptr=c_null_ptr
 end subroutine hashTable__delete
 
@@ -100,12 +110,21 @@ subroutine hashTable__insert(itself1,key,value,ierr)
 end subroutine hashTable__insert
 !
 subroutine hashTable__find(itself1,key,value,ierr)
-    use iso_c_binding,only:c_char
+    use iso_c_binding,only:c_char,c_ptr,c_null_ptr
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
+    integer::length
     character(len=*),intent(inout)::value
+    character(c_char)::c_str(33);
     integer,intent(out)::ierr
-    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),value,ierr)
+    type(c_ptr)::ptr_char
+
+    length=len(value)
+    ptr_char=C_create__char()
+    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),ptr_char,ierr)
+    write(*,*) "past find"
+    !call C_delete__char(ptr_char)
+    !ptr_char=c_null_ptr
 end subroutine hashTable__find
 
 end module test_hash

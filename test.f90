@@ -10,8 +10,7 @@ program test
     key=2
     test_val="testing"
     call hashInsert(hash,key,test_val,ierr)
-    write(*,*) ierr
     call hashFind(hash,key,ret_val,ierr)
-    call hashDel(hash)
+    !call hashDel(hash)
     write(*,*) ret_val 
 end program test
