@@ -1,0 +1,2 @@
+/usr/bin/ar cq libmyHashF.a  CMakeFiles/myHashF.dir/module_hashtable.f90.o CMakeFiles/myHashF.dir/hashTable.cpp.o
+/usr/bin/ranlib libmyHashF.a
