@@ -68,7 +68,7 @@ extern "C"{
             if (tmp[i]=='\0') break;
             output[i]=tmp[i];
         }
-        cout<<"out of loop";
+        cout<<"out of loop\n";
     }
 
     char* create__char_(int length){

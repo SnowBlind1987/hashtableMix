@@ -102,6 +102,7 @@ end subroutine hashTable__clear
 
 subroutine hashTable__insert(itself1,key,value,ierr)
     use iso_c_binding,only:c_char,c_null_char
+    implicit none
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
     character(len=*),intent(inout)::value
@@ -111,7 +112,8 @@ subroutine hashTable__insert(itself1,key,value,ierr)
 end subroutine hashTable__insert
 !
 subroutine hashTable__find(itself1,key,value,ierr)
-    use iso_c_binding,only:c_char,c_ptr,c_null_ptr
+    use iso_c_binding
+    implicit none
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
     integer::length
@@ -119,14 +121,17 @@ subroutine hashTable__find(itself1,key,value,ierr)
     character(c_char)::c_str(33);
     integer,intent(out)::ierr
     type(c_ptr)::ptr_char
+    character,pointer::test(:)
 
     length=len(value)
     ptr_char=C_create__char(length)
     call C_hashTable__find(itself1%hash_ptr,int(key,c_int),ptr_char,ierr)
     write(*,*) "past find"
-    value= ptr_char
+    call C_F_POINTER(ptr_char,test,[7])
     call C_delete__char(ptr_char)
     ptr_char=c_null_ptr
+    write(*,*) "conversion"
+    write(*,*) test(1)
 end subroutine hashTable__find
 
 end module test_hash
