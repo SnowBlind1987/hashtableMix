@@ -59,13 +59,12 @@ extern "C"{
         ierr=itself->insert(key,value);
     }
 
-    void  hashTable__find_(hashTable* itself,int key,char* & output, int& ierr){
+    void  hashTable__find_(hashTable* itself,int key,char output[33], int& ierr){
         const char* tmp=itself->find(key,ierr);
         int len=(int)strlen(tmp);
         cout<<len<<endl;
         for (int i=0;i<len;i++){
             cout<<tmp[i]<<" "<<i<<endl;
-            if (tmp[i]=='\0') break;
             output[i]=tmp[i];
         }
         cout<<"out of loop\n";

@@ -9,6 +9,7 @@ program test
     call hashClear(hash)
     key=2
     test_val="testing"
+    test_val=trim(test_val)
     call hashInsert(hash,key,test_val,ierr)
     call hashFind(hash,key,ret_val,ierr)
     call hashDel(hash)
