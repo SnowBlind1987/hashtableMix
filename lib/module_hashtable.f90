@@ -109,7 +109,6 @@ subroutine hashTable__find(itself1,key,str_value,ierr)
     character(len=*),intent(inout)::str_value
     character(c_char),allocatable::c_str(:)
     integer,intent(out)::ierr
-    type(c_ptr)::ptr_char
     character,pointer::test(:)
     integer::i
     allocate(c_str(33))
@@ -118,14 +117,7 @@ subroutine hashTable__find(itself1,key,str_value,ierr)
         str_value(i:i)="0"
     enddo
     c_str=trim(adjustl(str_value))//c_null_char
-    !ptr_char=C_create__char(length)
     call C_hashTable__find(itself1%hash_ptr,int(key,c_int),c_str,ierr)
-    write(*,*) "past find"
-    !call C_F_POINTER(ptr_char,test,[7])
-    !call C_delete__char(ptr_char)
-    ptr_char=c_null_ptr
-    write(*,*) "conversion"
-    write(*,*) test(1)
 end subroutine hashTable__find
 
 end module test_hash

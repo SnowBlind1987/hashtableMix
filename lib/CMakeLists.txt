@@ -11,4 +11,3 @@ set_target_properties(myHashF PROPERTIES Fortran_MODULE_DIRECTORY
 set_target_properties(myHashF PROPERTIES LINKER_LANGUAGE Fortran)
 
 
-add_subdirectory(C_only)
