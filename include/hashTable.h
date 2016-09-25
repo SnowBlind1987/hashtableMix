@@ -4,14 +4,18 @@
 
 class hashTable{
     private:
-        std::unordered_map<int,char*> myHash_;
+        std::unordered_map<int,const char*> myHash_;
     public:
          hashTable();
         ~hashTable();
 		void clear();
-        void insert(int,char*);
-        char* find(int,int &);
+        int insert(int,const char*);
+        const char* find(int,int &);
 };
 
+void hashTable_delete(hashTable*);
+void hashTable_clear(hashTable*);
+void hashTable_insert(hashTable*, int, const char*);
+void hashTable_find(hashTable*,int,char* &, int&);
 
 #endif

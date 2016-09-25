@@ -44,6 +44,18 @@ INTERFACE
         integer(c_int),intent(out)::ierr
    END subroutine C_hashTable__find
 
+   function C_create__char(length) result(itself) bind(C,name="create__char_")
+        use iso_c_binding,only:c_ptr,c_int
+        implicit none
+        integer(c_int)::length
+        type(c_ptr)::itself
+   end function C_create__char
+
+   subroutine C_delete__char(itself) bind(C,name="delete__char_")
+        use iso_c_binding,only:c_ptr
+        implicit none
+        type(c_ptr),value,intent(in)::itself
+   end subroutine C_delete__char
  ! function strlen(string)result(len) bind(C,name='strlen')
  !      use iso_c_binding,only:c_char,C_SIZE_T
  !      implicit none
@@ -80,7 +92,6 @@ end subroutine hashTable__new
 subroutine hashTable__delete(itself1)
     type(string_hash),intent(inout)::itself1
     call C_hashTable__delete(itself1%hash_ptr)
-    write(*,*) "out of c"
     itself1%hash_ptr=c_null_ptr
 end subroutine hashTable__delete
 
@@ -107,17 +118,18 @@ subroutine hashTable__find(itself1,key,str_value,ierr)
     integer,intent(in)::key
     integer::length
     character(len=*),intent(inout)::str_value
-    character(c_char),allocatable::c_str(:)
+    character(c_char)::c_str(33);
     integer,intent(out)::ierr
-    character,pointer::test(:)
     integer::i
-    allocate(c_str(33))
     length=len(str_value)
     do i=1,length
         str_value(i:i)="0"
     enddo
-    c_str=trim(adjustl(str_value))//c_null_char
-    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),c_str,ierr)
+    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),str_value,ierr)
+    str_value=trim(adjustl(str_value))//c_null_char
+    write(*,*) "past find"
+    write(*,*) str_value
+    write(*,*) "conversion"
 end subroutine hashTable__find
 
 end module test_hash
