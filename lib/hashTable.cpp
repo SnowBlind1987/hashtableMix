@@ -57,7 +57,7 @@ extern "C"{
         ierr=itself->insert(key,value);
     }
 
-    void  hashTable__find_(hashTable* itself,int key,char output[120], int& ierr){
+    void  hashTable__find_(hashTable* itself,int key,char output[], int& ierr){
         const char* tmp=itself->find(key,ierr);
         int len=(int)strlen(tmp);
         for (int i=0;i<len;i++){
