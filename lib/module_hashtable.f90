@@ -122,14 +122,11 @@ subroutine hashTable__find(itself1,key,str_value,ierr)
     integer,intent(out)::ierr
     integer::i
     length=len(str_value)
-    do i=1,length
-        str_value(i:i)="0"
-    enddo
+    !do i=1,length
+    !    str_value(i:i)="0"
+    !enddo
     call C_hashTable__find(itself1%hash_ptr,int(key,c_int),str_value,ierr)
     str_value=trim(adjustl(str_value))//c_null_char
-    write(*,*) "past find"
-    write(*,*) str_value
-    write(*,*) "conversion"
 end subroutine hashTable__find
 
 end module test_hash

@@ -12,7 +12,12 @@ program test
     test_val="testing"
     test_val=trim(test_val)
     call hashInsert(hash,key,test_val,ierr)
-    call hashFind(hash,key,ret_val,ierr)
+    write(*,*) ierr
+    call hashFind(hash,3,ret_val,ierr)
+    write(*,*) ierr
+    call hashFind(hash,2,ret_val,ierr)
+    write(*,*) ierr
+
     call hashDel(hash)
     write(*,*) ret_val 
 end program test
