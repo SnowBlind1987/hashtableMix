@@ -1,17 +1,21 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include <unordered_map>
-using namespace std;
 
 class hashTable{
     private:
-        unordered_map<int,char*>* myHash;
+        std::unordered_map<int,const char*> myHash_;
     public:
-        hashTable();
+         hashTable();
         ~hashTable();
-        void insert(int,char*);
-        char* find(int);
+		void clear();
+        int insert(int,const char*);
+        const char* find(int,int &);
 };
 
+void hashTable_delete(hashTable*);
+void hashTable_clear(hashTable*);
+void hashTable_insert(hashTable*, int, const char*);
+void hashTable_find(hashTable*,int,char* &, int&);
 
 #endif
