@@ -8,7 +8,7 @@ using namespace std;
 int main(){
 int i,ierr;
 hashTable * myHash=new hashTable;
-unordered_map<int,string> fuckYou;
+boost::unordered_map<int,string> fuckYou;
 for (i=0;i<5;i++){
 	string s=to_string(static_cast<long long>(i));
 	string testing="testing_";

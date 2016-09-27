@@ -3,15 +3,15 @@ program test
     !include"exernal_call.h"
     implicit none
     type(string_hash):: hash
-    character(len=33):: test_val,ret_val,tmp
+    character(len=128):: test_val,ret_val,tmp
     integer::i,key,ierr
     
     call hashNew(hash)
     call hashClear(hash)
-    do i=1,100
+    do i=1,1000
         write(tmp,*) i
         test_val="testing_"//trim(adjustl(tmp))
-        write(*,*) test_val
+        write(*,*)trim(adjustl( test_val))
         call hashInsert(hash,i,test_val,ierr)
         if (ierr/=0) then 
             write(*,*) "Error, insertion problem!"
@@ -19,7 +19,7 @@ program test
         endif
     enddo
 
-    do i=1,100
+    do i=1,1000
         call hashFind(hash,i,ret_val,ierr)
         if (ierr/=0) then 
             write(*,*) "Cannot find value!"

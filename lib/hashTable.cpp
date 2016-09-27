@@ -65,11 +65,17 @@ extern "C"{
         ierr=itself->Insert(key,value);
     }
 
-    void  hashTable__find_(hashTable* itself,int key,char output[], int& ierr){
+    void  hashTable__find_(hashTable* itself,int key,char output[], int& ierr, int f_str_len){
         const char* tmp=itself->Find(key,ierr);
+        
         int len=(int)strlen(tmp);
+        
         for (int i=0;i<len;i++){
             output[i]=tmp[i];
+        }
+        //fill the tail with blanks to make compatible with Fortran style string
+        for (int i=len;i<f_str_len;i++){
+            output[i]=' ';
         }
     }
 
