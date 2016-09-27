@@ -1,10 +1,10 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include <unordered_map>
-
+#include <string>
 class hashTable{
     private:
-        std::unordered_map<int,const char*> myHash_;
+        std::unordered_map<int,std::string> myHash_;
     public:
          hashTable();
         ~hashTable();

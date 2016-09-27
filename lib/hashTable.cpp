@@ -10,9 +10,8 @@ hashTable::hashTable(){
 hashTable::~hashTable(){
 }
 int hashTable::Insert(int key, const char* val){
-    //bool inserted= this->myHash_.insert(make_pair(key,val)).second;
-    myHash_[key]=val;
-	bool inserted=true;
+    bool inserted= this->myHash_.insert(make_pair(key,val)).second;
+    
     if (inserted){
         return 0;
     }
@@ -46,7 +45,7 @@ const char* hashTable::Find(int key, int & ierr){
 	}
     else{
         ierr=0;
-        return it->second;
+        return it->second.c_str();
 	}	
 }
 
