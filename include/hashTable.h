@@ -9,8 +9,9 @@ class hashTable{
          hashTable();
         ~hashTable();
 		void clear();
-        int insert(int,const char*);
-        const char* find(int,int &);
+		void showAll();
+        int Insert(int,const char*);
+        const char* Find(int,int &);
 };
 
 void hashTable_delete(hashTable*);

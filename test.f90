@@ -8,7 +8,7 @@ program test
     
     call hashNew(hash)
     call hashClear(hash)
-    do i=1,100
+    do i=1,2
         write(tmp,*) i
         test_val="testing_"//trim(adjustl(tmp))
         write(*,*) test_val
@@ -19,7 +19,7 @@ program test
         endif
     enddo
 
-    do i=1,100
+    do i=1,2
         call hashFind(hash,i,ret_val,ierr)
         if (ierr/=0) then 
             write(*,*) "Cannot find value!"

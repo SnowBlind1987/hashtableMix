@@ -1,40 +1,29 @@
 #include <iostream>
 #include <string>
 #include "hashTable.h"
-#include "external_call.h"
+#include <sstream>
 //#include <unordered_map>
 
-using std::cout;
-using std::endl;
+using namespace std;
 int main(){
-<<<<<<< HEAD
-    hashTable* myHash=hashTable_new();
-=======
-    int key=2;
-    int ierr;
-    char value[]="testing";
-    char* out;
-    hashTable* myHash=hashTable_new();
-    hashTable_insert(myHash,key,value);
-    hashTable_find(myHash,key,out,ierr);
-    cout<<out<<endl;
->>>>>>> find
-    hashTable_delete(myHash);	
-/*//	myHash->clear();
-	std::cout<<"printing pointer\n";
-	std::cout<<myHash<<std::endl;
-    char value[] ="testing";
-    int key=2;
-    myHash->insert(key,value);
-	char* output;
-    int ierr;
-    output = myHash->find(2,ierr);
-	if (ierr!=-1){
-	//	cout<<output<<endl;
-	}
-	else{
-	//	cout<<"key not found"<<endl;
-	}
-	std::cout<<myHash<<std::endl;
-	delete myHash;*/
+int i,ierr;
+hashTable * myHash=new hashTable;
+unordered_map<int,string> fuckYou;
+for (i=0;i<5;i++){
+	string s=to_string(i);
+	string testing="testing_";
+	string total=testing+s;
+	cout <<total<<endl;
+	ierr=myHash->Insert(i,total.c_str());
+	//fuckYou[i]=total;
 }
+	
+myHash->showAll();
+
+for (i=0;i<5;i++){
+//	auto it=fuckYou.find(i);
+//	cout<<it->second<<endl;
+}
+delete myHash;
+}
+
