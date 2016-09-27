@@ -9,7 +9,7 @@ enable_language(Fortran)
 
 #message("the fortran flag is " ${CMAKE_FORTRAN_COMPILER)
 
-set (CMAKE_CXX_FLAGS "-std=c++11")
+set (CMAKE_CXX_FLAGS "-std=c++0x")
 set (CMAKE_Fortran_FLAGS "-lstdc++")
 set (MODULE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/include")
 file(MAKE_DIRECTORY "${MODULE_OUTPUT_PATH}")
