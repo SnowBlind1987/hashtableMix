@@ -5,6 +5,7 @@
 //#include <unordered_map>
 
 using namespace std;
+using namespace velodyne;
 int main(){
 int i,ierr;
 hashTable * myHash=new hashTable;

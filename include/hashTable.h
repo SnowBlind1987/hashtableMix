@@ -2,6 +2,7 @@
 #define HASHTABLE_H
 #include <boost/unordered_map.hpp>
 #include <string>
+namespace velodyne{
 class hashTable{
     private:
         boost::unordered_map<int,std::string> myHash_;
@@ -19,4 +20,5 @@ void hashTable_clear(hashTable*);
 void hashTable_insert(hashTable*, int, const char*);
 void hashTable_find(hashTable*,int,char* &, int&);
 
+};
 #endif

@@ -3,7 +3,7 @@
 #include "hashTable.h"
 
 using namespace std;
-
+namespace velodyne{
 hashTable::hashTable(){
 }
 
@@ -87,3 +87,5 @@ extern "C"{
         delete[]  itself;
     }
 }
+
+};
