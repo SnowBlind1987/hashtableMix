@@ -1,10 +1,10 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include <string>
 class hashTable{
     private:
-        boost::unordered_map<int,std::string> myHash_;
+        std::unordered_map<int,std::string> myHash_;
     public:
          hashTable();
         ~hashTable();
