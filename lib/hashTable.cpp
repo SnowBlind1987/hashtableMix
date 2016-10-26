@@ -10,10 +10,11 @@ hashTable::hashTable(){
 hashTable::~hashTable(){
 }
 int hashTable::Insert(int key, const char* val){
-    bool inserted= this->myHash_.insert(make_pair(key,val)).second;
+    pair<boost::unordered_map<int,string>::iterator,bool> result;
+    result= this->myHash_.insert(make_pair(key,val));
     
-    if (inserted){
-        return 0;
+    if (result.second){
+        return result.first->first;
     }
     else {
         return -1;
