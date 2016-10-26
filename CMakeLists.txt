@@ -25,5 +25,3 @@ set_target_properties(hTestF PROPERTIES Fortran_MODULE_DIRECTORY
 set_target_properties(hTestF PROPERTIES LINKER_LANGUAGE Fortran)
 target_link_libraries (hTestF myHashF)
 
-add_executable(hTestC main.cpp)
-target_link_libraries(hTestC myHashC)
