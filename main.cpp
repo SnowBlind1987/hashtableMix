@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 #include "hashTable.h"
-#include "external_call.h"
+#include <sstream>
 //#include <unordered_map>
 
-using std::cout;
-using std::endl;
+using namespace std;
 int main(){
+
     hashTable* myHash=hashTable_new();
     int key=2;
     char value[] ="testing";
@@ -24,3 +24,13 @@ int main(){
 	std::cout<<myHash<<std::endl;
 	delete myHash;
 }
+	
+myHash->showAll();
+
+for (i=0;i<5;i++){
+//	auto it=fuckYou.find(i);
+//	cout<<it->second<<endl;
+}
+delete myHash;
+}
+

@@ -9,7 +9,7 @@ hashTable::hashTable(){
 
 hashTable::~hashTable(){
 }
-int hashTable::insert(int key, const char* val){
+int hashTable::Insert(int key, const char* val){
     bool inserted= this->myHash_.insert(make_pair(key,val)).second;
     
     if (inserted){
@@ -28,7 +28,15 @@ void hashTable::clear(){
 	}
 }
 
-const char* hashTable::find(int key, int & ierr){
+void hashTable::showAll(){
+	std::cout<<"My size is: "<<myHash_.size()<<std::endl;
+	auto it=this->myHash_.begin();
+	for (it;it!=myHash_.end();it++){
+		std::cout<<it->first<<" "<<it->second<<std::endl;
+	}
+}
+
+const char* hashTable::Find(int key, int & ierr){
 	auto it=this->myHash_.find(key);
 	if (it==this->myHash_.end()){
 		ierr=-1;
@@ -37,7 +45,7 @@ const char* hashTable::find(int key, int & ierr){
 	}
     else{
         ierr=0;
-        return it->second;
+        return it->second.c_str();
 	}	
 }
 
@@ -54,14 +62,20 @@ extern "C"{
     }
 
     void hashTable__insert_(hashTable* itself,int key,const char* value,int& ierr){
-        ierr=itself->insert(key,value);
+        ierr=itself->Insert(key,value);
     }
 
-    void  hashTable__find_(hashTable* itself,int key,char output[120], int& ierr){
-        const char* tmp=itself->find(key,ierr);
+    void  hashTable__find_(hashTable* itself,int key,char output[], int& ierr, int f_str_len){
+        const char* tmp=itself->Find(key,ierr);
+        
         int len=(int)strlen(tmp);
+        
         for (int i=0;i<len;i++){
             output[i]=tmp[i];
+        }
+        //fill the tail with blanks to make compatible with Fortran style string
+        for (int i=len;i<f_str_len;i++){
+            output[i]=' ';
         }
     }
 

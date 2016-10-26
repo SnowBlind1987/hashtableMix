@@ -10,3 +10,4 @@ set_target_properties(myHashF PROPERTIES Fortran_MODULE_DIRECTORY
     ${MODULE_OUTPUT_PATH})
 set_target_properties(myHashF PROPERTIES LINKER_LANGUAGE Fortran)
 
+add_library(myHashC ${C_OBJ})

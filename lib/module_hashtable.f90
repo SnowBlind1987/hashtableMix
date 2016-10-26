@@ -1,4 +1,7 @@
-
+!Written by Andrey Andreyev
+!C++ boost unordered_map wrapped in fortran
+!key: integer value: string
+!needs the boost library to function 
 module test_hash
 use ISO_C_BINDING,only: c_int, c_char,c_ptr,c_null_ptr
 implicit none
@@ -35,13 +38,14 @@ INTERFACE
         integer(c_int),intent(out)::ierr
    END SUBROUTINE C_hashTable__insert
    
-   subroutine C_hashTable__find(itself,key,str_value,ierr) bind(C,name="hashTable__find_")
+   subroutine C_hashTable__find(itself,key,str_value,ierr,f_length) bind(C,name="hashTable__find_")
         use iso_c_binding,only:c_ptr,c_char,c_int
         implicit none
         type(c_ptr),value,intent(in)::itself
         integer(c_int),value,intent(in)::key
         character(c_char),intent(inout)::str_value(*)
         integer(c_int),intent(out)::ierr
+        integer(c_int),value,intent(in)::f_length
    END subroutine C_hashTable__find
 
    function C_create__char(length) result(itself) bind(C,name="create__char_")
@@ -112,7 +116,7 @@ subroutine hashTable__insert(itself1,key,str_value,ierr)
 end subroutine hashTable__insert
 !
 subroutine hashTable__find(itself1,key,str_value,ierr)
-    use iso_c_binding
+    use iso_c_binding,only:c_int,c_ptr
     implicit none
     type(string_hash),intent(in)::itself1
     integer,intent(in)::key
@@ -125,8 +129,8 @@ subroutine hashTable__find(itself1,key,str_value,ierr)
     !do i=1,length
     !    str_value(i:i)="0"
     !enddo
-    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),str_value,ierr)
-    str_value=trim(adjustl(str_value))//c_null_char
+    call C_hashTable__find(itself1%hash_ptr,int(key,c_int),str_value,ierr,128)
+    str_value=trim(adjustl(str_value))
 end subroutine hashTable__find
 
 end module test_hash

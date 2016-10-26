@@ -3,21 +3,29 @@ program test
     !include"exernal_call.h"
     implicit none
     type(string_hash):: hash
-    character(len=33):: test_val,ret_val
-    integer::key,ierr
-    key=2
+    character(len=128):: test_val,ret_val,tmp
+    integer::i,key,ierr
+    
     call hashNew(hash)
     call hashClear(hash)
-    key=2
-    test_val="testing"
-    test_val=trim(test_val)
-    call hashInsert(hash,key,test_val,ierr)
-    write(*,*) ierr
-    call hashFind(hash,3,ret_val,ierr)
-    write(*,*) ierr
-    call hashFind(hash,2,ret_val,ierr)
-    write(*,*) ierr
+    do i=1,1000
+        write(tmp,*) i
+        test_val="testing_"//trim(adjustl(tmp))
+        write(*,*)trim(adjustl( test_val))
+        call hashInsert(hash,i,test_val,ierr)
+        if (ierr/=0) then 
+            write(*,*) "Error, insertion problem!"
+            exit 
+        endif
+    enddo
 
+    do i=1,1000
+        call hashFind(hash,i,ret_val,ierr)
+        if (ierr/=0) then 
+            write(*,*) "Cannot find value!"
+            exit
+        endif
+        write(*,*) trim(adjustl(ret_val))
+    enddo
     call hashDel(hash)
-    write(*,*) ret_val 
 end program test
